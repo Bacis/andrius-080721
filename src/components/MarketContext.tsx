@@ -40,7 +40,6 @@ const marketReducer = (state: IState, action: Action) => {
             }
         }
         case 'updateAsks': {
-            console.log("Dispatched: updateAsks")
             const asks = updateOrders(state.asks, action.payload.asks.flat())
 
             return {
@@ -49,7 +48,6 @@ const marketReducer = (state: IState, action: Action) => {
             }
         }
         case 'updateBids': {
-            console.log("Dispatched: updateBids")
             const bids = updateOrders(state.bids, action.payload.bids.flat())
 
             return {
