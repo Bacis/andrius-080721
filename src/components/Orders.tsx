@@ -5,7 +5,7 @@ import { sortOrdersByPrice } from '../utils/helper'
 interface OrdersProps {
     type: 'asks' | 'bids'
     orders: Array<Array<number>>
-    tick: number
+    tick?: number
 }
 
 const Orders: React.FC<OrdersProps> = props => {
@@ -16,14 +16,13 @@ const Orders: React.FC<OrdersProps> = props => {
         const [price, size] = order
         total += size
         const displayWidth = ((total * 100) / totalSize)
-
-
+        
         return <Row key={index}>
-                    {type === 'asks' ? <Text color="white">{total.toLocaleString()}</Text> : <Text color="green">{price.toLocaleString()}</Text>}
-                    <Text color="white">{size.toLocaleString()}</Text>
-                    {type === 'asks' ? <Text color="red">{price.toLocaleString()}</Text> : <Text color="white">{total.toLocaleString()}</Text>}
-                    {type === 'asks' ? <ProgressAsks displayWidth={displayWidth} /> : <ProgressBids displayWidth={displayWidth} /> }
-                </Row>
+            {type === 'asks' ? <Text color="white">{total.toLocaleString()}</Text> : <Text color="green">{price.toLocaleString()}</Text>}
+            <Text color="white">{size.toLocaleString()}</Text>
+            {type === 'asks' ? <Text color="red">{price.toLocaleString()}</Text> : <Text color="white">{total.toLocaleString()}</Text>}
+            {type === 'asks' ? <ProgressAsks displayWidth={displayWidth} /> : <ProgressBids displayWidth={displayWidth} /> }        
+        </Row>
     }).slice(0, 20)
 
     return (

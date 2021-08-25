@@ -3,20 +3,19 @@ import styled, { createGlobalStyle } from 'styled-components'
 import OrderBook from './components/OrderBook'
 import MarketTick from './components/MarketTick'
 import ControlFeed from './components/ControlFeed'
-import { MarketProvider } from './components/MarketContext'
 
 const App = (): JSX.Element => {
   return (
-    <MarketProvider>
+    <>
       <GlobalStyle />
       <Container>
         <AppBackground>
-          <MarketTick></MarketTick>
-          <OrderBook></OrderBook>
+          <MarketTick />
+          <OrderBook />
           <ControlFeed />
         </AppBackground>
       </Container>
-    </MarketProvider>
+    </>
   );
 }
 

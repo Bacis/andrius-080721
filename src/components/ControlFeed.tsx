@@ -1,33 +1,32 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useMarketContext } from './MarketContext'
-import { WebSocketContext } from '../components/WebSocketContext'
+import { useSelector } from 'react-redux'
+import { RootState } from '../app/rootReducer'
 
 const ControlFeed: React.FC = () => {
-    const { state, dispatch } = useMarketContext()
-    const { ws } = React.useContext(WebSocketContext)
+    const { productIds } = useSelector((state: RootState) => state.orders)
 
     const toggleFeed = (productIds: string[]) => {
-        console.log(`Unsubscribe feed: ${state.productIds}`)
+        console.log(`Unsubscribe feed: ${productIds}`)
 
-        if (ws.readyState === 1) {
-            ws.send(JSON.stringify({
-                event: "unsubscribe",
-                feed: "book_ui_1",
-                product_ids: state.productIds
-            }))
+        // if (ws.readyState === 1) {
+        //     ws.send(JSON.stringify({
+        //         event: "unsubscribe",
+        //         feed: "book_ui_1",
+        //         product_ids: state.productIds
+        //     }))
     
-            ws.send(JSON.stringify({
-                event: "subscribe",
-                feed: "book_ui_1",
-                product_ids: productIds
-            }));
+        //     ws.send(JSON.stringify({
+        //         event: "subscribe",
+        //         feed: "book_ui_1",
+        //         product_ids: productIds
+        //     }));
     
-            dispatch({
-                type: 'toggleFeed',
-                payload: productIds
-            })
-        }
+        //     dispatch({
+        //         type: 'toggleFeed',
+        //         payload: productIds
+        //     })
+        // }
     }
 
     const nukeFeed = () => {
@@ -40,7 +39,7 @@ const ControlFeed: React.FC = () => {
 
     return (
         <Grid>
-            <ToggleFeed onClick={() => toggleFeed(state.productIds.includes("PI_ETHUSD") ? ["PI_XBTUSD"] : ["PI_ETHUSD"])}>Toggle Feed</ToggleFeed>
+            <ToggleFeed onClick={() => toggleFeed(productIds.includes("PI_ETHUSD") ? ["PI_XBTUSD"] : ["PI_ETHUSD"])}>Toggle Feed</ToggleFeed>
             <KillFeed onClick={() => nukeFeed()}>Kill Feed</KillFeed>
         </Grid>
     )

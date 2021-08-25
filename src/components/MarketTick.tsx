@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState } from '../app/rootReducer'
 import styled from 'styled-components'
-import { useMarketContext } from './MarketContext'
-
 interface IAvailableTicks {
     [key: string]: Array<number>;
 }
@@ -11,8 +11,8 @@ const MarketTick: React.FC = () => {
         'PI_XBTUSD': [0.50, 1, 2.5],
         'PI_ETHUSD': [0.05, 0.1, 0.25],
     }
-    const { state, dispatch } = useMarketContext()
-    const { productIds } = state
+    const dispatch = useDispatch()
+    const { productIds } = useSelector((state: RootState) => state.orders)
     const [marketTick, setMarketTick] = useState<number>(availableTicks[productIds[0]][0])
 
     const handleChange = (event: React.SyntheticEvent): void => {
